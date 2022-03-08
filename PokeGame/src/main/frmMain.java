@@ -15,6 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -26,7 +27,8 @@ public class frmMain extends javax.swing.JFrame {
     Pokedex dexter = new Pokedex();
     PokeViewer visor = new PokeViewer();
     Reloj horaActual = new Reloj();
-
+    PlayGame Juego;
+    String[] Names;
     /**
      * Creates new form frmMain
      */
@@ -58,7 +60,7 @@ public class frmMain extends javax.swing.JFrame {
                 }
             }
             else{
-                lblSprite.setText("?");
+               lblSprite.setIcon(null);
                 btnPokemon1.setText("???");
                 btnPokemon2.setText("???");
                 btnPokemon3.setText("???");
@@ -91,12 +93,32 @@ public class frmMain extends javax.swing.JFrame {
         lblSprite.setText("?");
 
         btnPokemon1.setText("???");
+        btnPokemon1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPokemon1ActionPerformed(evt);
+            }
+        });
 
         btnPokemon2.setText("???");
+        btnPokemon2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPokemon2ActionPerformed(evt);
+            }
+        });
 
         btnPokemon3.setText("???");
+        btnPokemon3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPokemon3ActionPerformed(evt);
+            }
+        });
 
         btnPokemon4.setText("???");
+        btnPokemon4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPokemon4ActionPerformed(evt);
+            }
+        });
 
         btnJugar.setText("Jugar");
         btnJugar.addActionListener(new java.awt.event.ActionListener() {
@@ -166,18 +188,55 @@ public class frmMain extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnJugarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJugarActionPerformed
-        try {
-            whoIsThatPokemon = dexter.buscarPokemon();
-            btnPokemon1.setText(whoIsThatPokemon.getName());
-            btnPokemon2.setText(whoIsThatPokemon.getName());
-            btnPokemon3.setText(whoIsThatPokemon.getName());
-            btnPokemon4.setText(whoIsThatPokemon.getName());
-            visor.mostrarSprites();
-        } catch (IOException | InterruptedException ex) {
-            Logger.getLogger(frmMain.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        btnJugar.setText("Jugar de nuevo");
+            Juego = new PlayGame();
+            Juego.start();
+            
+           btnJugar.setText("Jugar de nuevo");
     }//GEN-LAST:event_btnJugarActionPerformed
+
+    private void btnPokemon1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPokemon1ActionPerformed
+        if( btnPokemon1.getText().equals(whoIsThatPokemon.getName()))
+        {
+            JOptionPane.showMessageDialog(null, "Felicidades has ganado!!", "Resultado", JOptionPane.INFORMATION_MESSAGE);
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null, "Has fallado!!", "Resultado", JOptionPane.ERROR_MESSAGE);
+        }
+        
+        
+    }//GEN-LAST:event_btnPokemon1ActionPerformed
+
+    private void btnPokemon2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPokemon2ActionPerformed
+       if( btnPokemon2.getText().equals(whoIsThatPokemon.getName()))
+        {
+            JOptionPane.showMessageDialog(null, "Felicidades has ganado!!", "Resultado", JOptionPane.INFORMATION_MESSAGE);
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null, "Has fallado!!", "Resultado", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnPokemon2ActionPerformed
+
+    private void btnPokemon3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPokemon3ActionPerformed
+       if( btnPokemon3.getText().equals(whoIsThatPokemon.getName()))
+        {
+            JOptionPane.showMessageDialog(null, "Felicidades has ganado!!", "Resultado", JOptionPane.INFORMATION_MESSAGE);
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null, "Has fallado!!", "Resultado", JOptionPane.ERROR_MESSAGE);
+        }    }//GEN-LAST:event_btnPokemon3ActionPerformed
+
+    private void btnPokemon4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPokemon4ActionPerformed
+       if( btnPokemon4.getText().equals(whoIsThatPokemon.getName()))
+        {
+            JOptionPane.showMessageDialog(null, "Felicidades has ganado!!", "Resultado", JOptionPane.INFORMATION_MESSAGE);
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null, "Has fallado!!", "Resultado", JOptionPane.ERROR_MESSAGE);
+        }    }//GEN-LAST:event_btnPokemon4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -246,6 +305,108 @@ public class frmMain extends javax.swing.JFrame {
         }
     }
 
+    
+    public class PlayGame extends Thread {
+        private boolean run = true;
+
+        public void startRunning() {
+            run = true;
+        }
+
+        public void stopRunning() {
+            run = false;
+        }        
+
+        //Sobrescribir metodo run
+        // El método run es llamado con la acción start() del hilo y a su vez se usa un hilo diferente al principal (main)
+        @Override
+        public void run() {
+            while (run) {
+                Pokemon Aux = new Pokemon();
+                Names = new String[4];
+                try {
+                    whoIsThatPokemon = dexter.buscarPokemon();
+                    Names[0]= whoIsThatPokemon.getName();
+                    
+                    //Obtiene nombres diferentes
+                    Aux = dexter.buscarPokemon();
+                    Names[1]= Aux.getName();
+                    
+                    Aux = dexter.buscarPokemon();
+                    Names[2]= Aux.getName();
+
+                    Aux = dexter.buscarPokemon();
+                    Names[3]= Aux.getName();
+                    
+                } catch (IOException ex) {
+                    Logger.getLogger(frmMain.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(frmMain.class.getName()).log(Level.SEVERE, null, ex);
+                }
+          
+            int posicion = (int) Math.floor(Math.random() * 2 + 1);
+            for(int i=0;i<4;i++)
+            {
+                if(posicion==4)
+                {
+                    posicion=0;
+                }
+                switch(i)
+                {
+                    case 0:
+                        btnPokemon1.setText(Names[posicion]);
+                    break;
+                    case 1:
+                        btnPokemon2.setText(Names[posicion]);
+                    break;
+                    case 2:
+                        btnPokemon3.setText(Names[posicion]);
+                    break;
+                    case 3:
+                        btnPokemon4.setText(Names[posicion]);
+                    break;
+                }
+                                posicion++;
+   }
+//            btnPokemon1.setText(whoIsThatPokemon.getName());
+//                btnPokemon2.setText(whoIsThatPokemon.getName());
+//            btnPokemon3.setText(whoIsThatPokemon.getName());
+//            btnPokemon4.setText(whoIsThatPokemon.getName());
+                         
+                
+            Galeria Muestras = new Galeria();
+            Muestras.start();
+         //visor.mostrarSprites();
+            run=false; 
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(frmMain.class.getName()).log(Level.SEVERE, null, ex);
+            }
+           }
+        }
+    }
+
+     public class Galeria extends Thread {
+        //Sobrescribir metodo run
+        // El método run es llamado con la acción start() del hilo y a su vez se usa un hilo diferente al principal (main)
+        @Override
+        public void run() {
+            while (true) {
+                //Mostar Sprites del Pokemon en ciclo
+                visor.mostrarSprites();
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(frmMain.class.getName()).log(Level.SEVERE, null, ex);
+            }
+           }
+        }
+    }
+
+
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnJugar;
     private javax.swing.JButton btnPokemon1;
