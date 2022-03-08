@@ -190,7 +190,6 @@ public class frmMain extends javax.swing.JFrame {
     private void btnJugarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJugarActionPerformed
             Juego = new PlayGame();
             Juego.start();
-            
            btnJugar.setText("Jugar de nuevo");
     }//GEN-LAST:event_btnJugarActionPerformed
 
@@ -368,15 +367,9 @@ public class frmMain extends javax.swing.JFrame {
                 }
                                 posicion++;
    }
-//            btnPokemon1.setText(whoIsThatPokemon.getName());
-//                btnPokemon2.setText(whoIsThatPokemon.getName());
-//            btnPokemon3.setText(whoIsThatPokemon.getName());
-//            btnPokemon4.setText(whoIsThatPokemon.getName());
-                         
                 
             Galeria Muestras = new Galeria();
             Muestras.start();
-         //visor.mostrarSprites();
             run=false; 
                 try {
                     Thread.sleep(1000);
